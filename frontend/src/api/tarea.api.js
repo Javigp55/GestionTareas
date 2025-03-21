@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const Api = axios.create({
-    baseURL: 'https://react-django-gestion-tareas-fy5sukige-skunk35s-projects.vercel.app/tasks/api/task/'
+    baseURL: 'https://react-django-gestion-tareas.vercel.app/tasks/api/task/'
 })
 
 export const Recibirapi = () => {
