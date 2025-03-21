@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-mys299o@%u_6fxu25)aowxvpyecul+m6avkm23_g*yt$7mr3id
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app']
 
 
 # Application definition
@@ -129,6 +129,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CORS_ALLOW_ALL_ORIGINS = True
 
-#CORS_ALLOWED_ORIGINS = [""]
+CORS_ALLOWED_ORIGINS = ['localhost', '127.0.0.1', '.vercel.app']
