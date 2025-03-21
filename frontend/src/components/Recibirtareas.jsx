@@ -8,7 +8,7 @@ import { Tarjeta } from './Tarjetas';
     useEffect(() => {
       async function cargaTarea() {
             const res = await Recibirapi()
-            setTarea(res.data)
+            setTarea(res)
       }
       cargaTarea()
      }, []);

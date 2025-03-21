@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom"
-export function Navigation() {
+import React from "react"
+
+export const Navigation = React.memo(() => {
   return (
-    <div className="flex justify-center items-center py-5 block">
+    <div className="flex justify-center items-center py-5 sticky">
         
         <Link to="/tareas" className="px-3 py-2 bg-indigo-500 rounded-lg mr-3"><button>Tareas</button></Link>
 
@@ -10,7 +12,7 @@ export function Navigation() {
         
     </div>
   )
-}
+})
 
 
 export default Navigation

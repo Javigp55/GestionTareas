@@ -11,6 +11,8 @@ import { toast } from "react-hot-toast";
 
 export function Mandar() {
   const [titulo, setTitulo] = useState("");
+  const [loading, setLoading] = useState(true);
+
   const {
     register,
     handleSubmit,
@@ -39,11 +41,16 @@ export function Mandar() {
         setValue("title", res.data.title);
         setValue("description", res.data.description);
         setTitulo(res.data);
+        setLoading(false);
       }
     }
     cargarTarea();
   }, []);
-
+  if (loading == true) {
+    if (params.id) {
+      return <div></div>;
+    }
+  }
   return (
     <div>
       {params.id && (
