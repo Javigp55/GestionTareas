@@ -3,5 +3,3 @@ whitenoise
 djangorestframework
 django-cors-headers
 python-dotenv 
-psycopg2
-django-environ
