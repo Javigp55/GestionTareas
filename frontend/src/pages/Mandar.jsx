@@ -6,22 +6,26 @@ import {
   Recibirtarea,
 } from "../api/tarea.api";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import miGif from "../assets/cargar.gif";
+import { useQuery } from "@tanstack/react-query";
 
 export function Mandar() {
-  const [titulo, setTitulo] = useState("");
-  const [loading, setLoading] = useState(true);
-
+  // Creamos en una constante un useForm para crear despues un formulario
+  // y registrar cada datos para poder enviarlo.
   const {
-    register,
-    handleSubmit,
+    register, // Este registra los datos.
+    handleSubmit, // El encargado de realizar el Submit con los datos.
     formState: { errors },
-    setValue,
+    setValue, // Para ponerle unos valores predeterminados.
   } = useForm();
   const navigate = useNavigate();
-  const params = useParams();
+  const params = useParams(); // para saber el parametro que recibe.
 
+
+  // Se crea esta const la cual se utilizada en el formulario, utuliza el handleSubmit
+  // para recoger los datos y despues enviarlos, si recibe parametros sera editando y si
+  // no los recibe sera creando una nueva
   const onSubmit = handleSubmit(async (data) => {
     if (params.id) {
       await actualizar(params.id, data);
@@ -33,34 +37,39 @@ export function Mandar() {
       navigate("/tareas");
     }
   });
-
-  useEffect(() => {
-    async function cargarTarea() {
-      if (params.id) {
-        const res = await Recibirtarea(params.id);
-        setValue("title", res.data.title);
-        setValue("description", res.data.description);
-        setTitulo(res.data);
-        setLoading(false);
-      }
-    }
-    cargarTarea();
-  }, []);
-  if (loading == true) {
-    if (params.id) {
-      return <div></div>;
-    }
+  // Se crea el useQuery para recibir el API de cada tarea por separado 
+  // y solo si recibe un parametro en la URL
+  const {
+    isLoading,
+    data: tarea,
+    isError,
+  } = useQuery({
+    queryKey: ["tarea", params.id],
+    queryFn: () => Recibirtarea(params.id),
+    enabled: !!params.id
+  });
+  // Añadimos el loading para que espere mientras recibe los datos.
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <img src={miGif} alt="Cargar" className="w-10 h-10" />
+      </div>
+    );
   }
+
+
   return (
     <div>
       {params.id && (
         <div className="flex justify-center">
+          {setValue("title", tarea.title)}
+          {setValue("description", tarea.description)}
           <div className="bg-gray-700 bg-opacity-40 p-9 rounded-lg w-1/2 mb-5">
             <h1 className="text-center font-bold mb-3">INFORMACION TAREA</h1>
             <h1 className="text-center tx-2xl font-bold  uppercase break-words">
-              {titulo.title}
+              {tarea.title}
             </h1>
-            <p className="text-center break-words">{titulo.description}</p>
+            <p className="text-center break-words">{tarea.description}</p>
             <button
               onClick={async () => {
                 const aceptar = window.confirm("¿Quieres eliminar la tarea?");
