@@ -27,6 +27,6 @@ def actualizar_done(request, id):
     
 
     if tarea.done == True:
-        return Response({"id": 1 ,"mensaje": "Tarea fijada"})
+        return Response({"id": 0 ,"mensaje": "Tarea fijada"})
     else:
         return Response({"id": 1 , "mensaje": "Tarea desfijada"})

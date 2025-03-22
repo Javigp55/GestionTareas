@@ -42,7 +42,6 @@ export function Mandar() {
   const {
     isLoading,
     data: tarea,
-    isError,
   } = useQuery({
     queryKey: ["tarea", params.id],
     queryFn: () => Recibirtarea(params.id),

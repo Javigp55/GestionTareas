@@ -1,20 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { fijado } from "../api/tarea.api";
+import { toast } from "react-hot-toast";
+
 
 //Esta funcion recibe el parametro task de Recibirtareas.jsx
 export function Tarjeta({ task }) {
-
+  const navigate = useNavigate(); //Redireccion
   const botonFijar = async (event) => {
     //Para que el boton de fijar no herede la propiedad onClick del div
     event.stopPropagation();
     const res = await fijado(task.id);
     res
     if (res.data['error'])
-      console.log('dsdsds')
-    else
-    navigate("/");
+      toast.error("No puedes tener mas de 3 tareas fijadas.")
+    else if (res.data['id'] == 0){
+      toast.success("Tarea fijada.");
+      navigate("/")}
+
+    else if (res.data['id'] == 1){
+      toast.success("Tarea desfijada.")
+      navigate("/")}
+    
   }
-  const navigate = useNavigate(); //Redireccion
+
   return (
     <div //Div que engloba cada tarea
       className="bg-gray-700 bg-opacity-40 p-8 rounded-lg hover:bg-gray-500 h-[220px]"
