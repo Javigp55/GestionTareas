@@ -165,8 +165,10 @@ CORS_ALLOWED_ORIGINS = [
     'https://localhost:5173', 
     'https://127.0.0.1:5173',
     '.vercel.app'
-    'https://.vercel.app'
+    'https://react-django-gestion-tareas-eeye.vercel.app/'
 ]
+
+
 
 #####AUTENTIFICACION CONFIGURACION
 CSRF_COOKIE_SECURE = False  # Activar solo en producción (HTTPS)
