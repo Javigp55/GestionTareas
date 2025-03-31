@@ -1,4 +1,17 @@
 import { Recibirtareas } from "../components/Recibirtareas"
+import React, { useEffect } from "react"
+import Cookies from 'js-cookie'
+import { useNavigate, } from "react-router-dom"
+
 export function Recibir() {
-    return <Recibirtareas/>
+    const navigate = useNavigate();
+    useEffect(() => {
+      const usuario = Cookies.get("Auth");
+      if (!usuario) { 
+        navigate("/");
+      }
+    }, []);
+
+
+    return <div className="bg-gradient-to-b from-lime-100 to-white p-5 pt-10 pb-8 sm:p-10"><Recibirtareas/></div>
   }

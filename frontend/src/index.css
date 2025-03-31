@@ -1,15 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 body {
-  background: rgb(34, 35, 56);
-  color: white;
+  background: rgb(255, 255, 255);
+  color: rgb(15, 15, 15);
 
 }
 .custom-clamp {
   display: -webkit-box;
-  -webkit-line-clamp: 3;  /* Limita el texto a 3 líneas */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

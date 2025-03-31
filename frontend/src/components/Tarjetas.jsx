@@ -1,45 +1,48 @@
 import { useNavigate } from "react-router-dom";
-import { fijado } from "../api/tarea.api";
+import { fijado, Recibirapi, Recibirtarea } from "../api/tarea.api";
 import { toast } from "react-hot-toast";
+import {Recibirtareas} from './Recibirtareas'
 
 
 //Esta funcion recibe el parametro task de Recibirtareas.jsx
-export function Tarjeta({ task }) {
+export function Tarjeta({ task , onReload }) {
   const navigate = useNavigate(); //Redireccion
+
+
   const botonFijar = async (event) => {
     //Para que el boton de fijar no herede la propiedad onClick del div
     event.stopPropagation();
-    const res = await fijado(task.id);
+    
+    try{
+    const res = await fijado(task.id)
     res
-    if (res.data['error'])
-      toast.error("No puedes tener mas de 3 tareas fijadas.")
-    else if (res.data['id'] == 0){
-      toast.success("Tarea fijada.");
-      navigate("/")}
-
-    else if (res.data['id'] == 1){
-      toast.success("Tarea desfijada.")
-      navigate("/")}
+    toast.success(res.data.message);
+    onReload();
+    
+    }catch(error){
+      toast.error(error.message)
+    }
     
   }
 
   return (
     <div //Div que engloba cada tarea
-      className="bg-gray-700 bg-opacity-40 p-8 rounded-lg hover:bg-gray-500 h-[220px]"
+      className="bg-gray-50 p-0 rounded-lg active:scale-105 active:bg-gray-200 hover:scale-105 hover:bg-gray-200 shadow shadow-gray-700 h-[240px] transition-all duration-300 mb-2"
       onClick={() => {
         // Cuando se pulsa encima del div se redireccion a tarea/:id
-        navigate("/tarea/" + task.id);
+        navigate("/tarea/", { state: { taskId: task.id } });
+        
       }}
     >
       {task.done ? (
-        <button onClick={botonFijar}>AA</button>
+        <div className="flex justify-end bg-gray-800 rounded-t-lg "><button onClick={botonFijar} className="mt-0.5 mr-2"><span className="material-symbols-outlined items-center text-lime-50 cursor-pointer active:scale-110 transition-all duration-300">keep</span></button></div>
       ) : (
-        <button onClick={botonFijar}>EE</button>
+        <div className="flex justify-end bg-gray-800 rounded-t-lg "><button onClick={botonFijar} className="mt-0.5 mr-2"><span className="material-symbols-outlined items-center text-lime-50 cursor-pointer active:scale-110 transition-all duration-300">keep_off</span></button></div>
       )}
-      <h1 className="text-center tx-2xl font-bold mb-2 uppercase line-clamp-1 break-words">
+      <h1 className="text-center tx-2xl font-bold mb-2 uppercase line-clamp-2 break-words m-3">
         {task.title}
       </h1>
-      <p className="text-center line-clamp-5 break-words">{task.description}</p>
+      <p className="text-center line-clamp-5 break-words m-3">{task.description}</p>
     </div>
   );
 }

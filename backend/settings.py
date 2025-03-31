@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import psycopg2
 from dotenv import load_dotenv
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tareas',
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
+    'sslserver',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +62,22 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": False,
+    "UPDATE_LAST_LOGIN": False,
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+
+    )
+}
 
 TEMPLATES = [
     {
@@ -78,18 +98,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.app'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-#
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-
-#dotenv_path = os.path.join(BASE_DIR, ".env")
-#load_dotenv(dotenv_path)
 load_dotenv()
 
 
@@ -149,6 +158,18 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
-# CORS_ALLOWED_ORIGINS = ['localhost', '127.0.0.1', '.vercel.app']
+CORS_ALLOWED_ORIGINS = [
+    'https://localhost:5173',  # Asegúrate de que tu frontend está permitido
+    'https://127.0.0.1:5173',
+    # Puedes agregar más dominios si es necesario
+]
+
+#####AUTENTIFICACION CONFIGURACION
+CSRF_COOKIE_SECURE = False  # Activar solo en producción (HTTPS)
+SESSION_COOKIE_SECURE = True  # Solo enviar cookies en HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Bloquear acceso a cookies desde JS
+SESSION_COOKIE_SAMESITE = "None"  # Evita CSRF
+
