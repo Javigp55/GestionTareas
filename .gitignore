@@ -1,1 +1,7 @@
 .env
+cert.crt 
+cert.key
+cert.pem
+key.pem
+selftest-cert.crt
+selftest-cert.key
