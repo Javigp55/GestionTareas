@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'https://react-django-gestion-tareas.vercel.app/']
 
 
 # Application definition
@@ -164,8 +164,9 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'https://localhost:5173', 
     'https://127.0.0.1:5173',
-    '.vercel.app'
-    'https://react-django-gestion-tareas-eeye.vercel.app/'
+    '.vercel.app',
+    'https://react-django-gestion-tareas-eeye.vercel.app/',
+    "https://react-django-gestion-tareas.vercel.app/",
 ]
 
 
