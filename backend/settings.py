@@ -162,9 +162,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    'https://localhost:5173',  # Asegúrate de que tu frontend está permitido
+    'https://localhost:5173', 
     'https://127.0.0.1:5173',
-    # Puedes agregar más dominios si es necesario
+    '.vercel.app'
+    'https://.vercel.app'
 ]
 
 #####AUTENTIFICACION CONFIGURACION
